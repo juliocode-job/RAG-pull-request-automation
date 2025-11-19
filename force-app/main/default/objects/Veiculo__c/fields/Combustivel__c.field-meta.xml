@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Combustivel__c</fullName>
+    <label>Combustível</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Eletrico__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Gasolina</fullName>
+                <default>false</default>
+                <label>Gasolina</label>
+            </value>
+            <value>
+                <fullName>Flex</fullName>
+                <default>false</default>
+                <label>Flex</label>
+            </value>
+            <value>
+                <fullName>Diesel</fullName>
+                <default>false</default>
+                <label>Diesel</label>
+            </value>
+            <value>
+                <fullName>Gás Natural</fullName>
+                <default>false</default>
+                <label>Gás Natural</label>
+            </value>
+            <value>
+                <fullName>Querosene</fullName>
+                <default>false</default>
+                <label>Querosene</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Sim</controllingFieldValue>
+            <controllingFieldValue>Não</controllingFieldValue>
+            <valueName>Gasolina</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sim</controllingFieldValue>
+            <controllingFieldValue>Não</controllingFieldValue>
+            <valueName>Flex</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Não</controllingFieldValue>
+            <valueName>Diesel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Não</controllingFieldValue>
+            <valueName>Gás Natural</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Não</controllingFieldValue>
+            <valueName>Querosene</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

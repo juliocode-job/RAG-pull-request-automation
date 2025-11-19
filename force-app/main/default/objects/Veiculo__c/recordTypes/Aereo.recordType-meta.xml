@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aereo</fullName>
+    <active>true</active>
+    <label>Aéreo</label>
+    <picklistValues>
+        <picklist>Combustivel__c</picklist>
+        <values>
+            <fullName>Diesel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flex</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gasolina</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gás Natural</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Querosene</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Eletrico__c</picklist>
+        <values>
+            <fullName>Não</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sim</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

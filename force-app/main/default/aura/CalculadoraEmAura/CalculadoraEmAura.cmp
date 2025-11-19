@@ -1,0 +1,30 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global"
+                controller="CalculadoraController">
+    
+    <aura:attribute name="title" type="String" default="Calculadora"/>
+    <aura:attribute name="primeiroValor" type="Integer" default="0"/>
+    <aura:attribute name="segundoValor" type="Integer" default="0"/>
+    <aura:attribute name="resultado" type="Integer" default="0"/>
+    <aura:attribute name="operacao" type="String"/>
+    <aura:attribute name="CalculoRealizado" type="String"/>
+    
+    <lightning:card>
+        <aura:set attribute="title">
+            <lightning:icon iconName="standard:event" size="small"/>
+            {! v.title }
+        </aura:set>
+        <lightning:input type="number" name="input1" label="Primeiro Valor" value="{! v.primeiroValor}"/>
+        <lightning:input type="number" name="input2" label="Segundo Valor" value="{! v.segundoValor}"/>
+        <lightning:input type="number" name="input3" label="Resultado" value="{! v.resultado}"/>
+        <aura:set attribute="footer">
+            <lightning:buttonGroup>
+                <lightning:button label="Adição" onclick="{! c.executeAdicao }"/>
+                <lightning:button label="Subtração" onclick="{! c.executeSubtracao }"/>
+                <lightning:button label="Multiplicação" onclick="{! c.executeMultiplicao }"/>
+                <lightning:button label="Divisão" onclick="{! c.executeDivisao }"/>
+            </lightning:buttonGroup>
+        </aura:set>
+	{! v.CalculoRealizado }        
+    </lightning:card>
+</aura:component>

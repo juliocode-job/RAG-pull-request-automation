@@ -1,0 +1,14 @@
+<template>
+        <lightning-card>
+            {name}
+            <lightning-input type="text" label = "Name" onchange={saveName}></lightning-input>
+            <lightning-button label="Salvar" onclick={criarConta}></lightning-button>
+            
+            <template if:true={success}>
+                Conta inserida com sucesso!
+            </template>
+            <template if:true={error}>
+                Erro ao inserir conta!
+            </template>
+        </lightning-card>
+</template>
