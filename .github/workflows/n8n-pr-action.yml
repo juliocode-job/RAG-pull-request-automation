@@ -1,0 +1,75 @@
+name: "Create PR from n8n"
+
+# Triggered via an HTTP POST request to the GitHub API (repository_dispatch)
+on:
+  repository_dispatch:
+    types: [create-pr]
+
+# We need permissions to checkout code and create pull requests
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: "Configure Git Identity"
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+      - name: "Create Branch"
+        run: |
+          # Checkout a new branch using the name sent from the n8n payload
+          git checkout -b "${{ github.event.client_payload.branch_name }}"
+          
+      - name: "Write new file content"
+        run: |
+          # Using Node.js inline to safely handle all multiline and quotes escaping flawlessly
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            
+            const newContent = process.env.FILE_CONTENT;
+            const filePath = process.env.FILE_PATH;
+            
+            // Create target folder recursively if it doesn't exist
+            fs.mkdirSync(path.dirname(filePath), { recursive: true });
+            
+            // Overwrite the file exactly with what the LLM sent
+            fs.writeFileSync(filePath, newContent);
+          "
+        env:
+          FILE_CONTENT: ${{ github.event.client_payload.file_content }}
+          FILE_PATH: ${{ github.event.client_payload.file_path }}
+
+      - name: "Commit and Push changes"
+        run: |
+          # Stage the specific file
+          git add "${{ github.event.client_payload.file_path }}"
+          
+          # Only commit if there are actually differences
+          if git diff --cached --quiet; then
+            echo "No changes to commit (LLM just sent identical code)."
+            exit 0
+          fi
+          
+          git commit -m "${{ github.event.client_payload.commit_message }}"
+          
+          git push -u origin "${{ github.event.client_payload.branch_name }}"
+          
+      - name: "Create Pull Request"
+        run: |
+          gh pr create \
+            --title "${{ github.event.client_payload.pr_title }}" \
+            --body "Automated Pull Request generated out of n8n analysis." \
+            --head "${{ github.event.client_payload.branch_name }}" \
+            --base "master"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
